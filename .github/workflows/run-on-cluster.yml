@@ -25,8 +25,6 @@ jobs:
         mkdir -p ~/.local/bin/kubectl
         mv ./kubectl ~/.local/bin/kubectl
         export PATH=$PATH:~/.local/bin/kubectl
-        echo "export KUBECONFIG=$HOME/.kube/config" >> $HOME/.bashrc
-        export KUBECONFIG=$HOME/.kube/config 
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -41,6 +39,6 @@ jobs:
       uses: mxschmitt/action-tmate@v3.5
     - name: Deploy & Run SAME Program
       run: |
-        same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
+        LOG_LEVEL=trace same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
       env:
-        KUBECONFIG: $HOME/.kube/config
+        KUBECONFIG: ~/.kube/config
