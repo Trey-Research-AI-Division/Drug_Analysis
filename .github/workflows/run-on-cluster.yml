@@ -33,10 +33,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install kfp
-    - name: Debugging with tmate
-      # You may pin to the exact commit or the version.
-      # uses: mxschmitt/action-tmate@18c3652e863e41474701cc45349bfc24a902636e
-      uses: mxschmitt/action-tmate@v3.5
     - name: Deploy & Run SAME Program
       run: |
-        LOG_LEVEL=trace same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
+        same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
