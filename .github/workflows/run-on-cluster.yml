@@ -26,7 +26,7 @@ jobs:
           mv ./kubectl ~/.local/bin/kubectl
           export PATH=$PATH:~/.local/bin/kubectl
           echo "export KUBECONFIG=$HOME/.kube/config" >> $HOME/.bashrc
-          export KUBECONFIG=$HOME/.kube/config
+          export KUBECONFIG=~/.kube/config
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -40,4 +40,4 @@ jobs:
         run: |
           same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
         env:
-          KUBECONFIG: $HOME/.kube/config
+          KUBECONFIG: ~/.kube/config
