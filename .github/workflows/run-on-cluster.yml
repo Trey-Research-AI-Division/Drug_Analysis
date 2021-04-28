@@ -39,6 +39,9 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Deploy & Run SAME Program
         run: |
-          same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
+          same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }} --run-param=keyvault_url=$KEYVAULT_URL --run-param=keyvault_credentials_b64=$KEYVAULT_CREDENTIALS_B64 --run-param=connection_string_secret_name=$CONNECTION_STRING_SECRET_NAME
         env:
-          KUBECONFIG: ~/.kube/config
+          KUBECONFIG: $HOME/.kube/config
+          KEYVAULT_URL: ${{ secrets.KEYVAULT_URL }}
+          CONNECTION_STRING_SECRET_NAME: ${{ secrets.CONNECTION_STRING_SECRET_NAME }}
+          KEYVAULT_CREDENTIALS_B64: ${{ secrets.KEYVAULT_CREDENTIALS_B64 }}
