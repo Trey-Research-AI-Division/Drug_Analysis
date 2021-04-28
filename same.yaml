@@ -1,53 +1,12 @@
 apiVersion: projectsame.io/v1alpha1
 metadata:
-    name: HousePriceSample
-    sha: deadbeef
-    labels:
-        label1: value1
-    version: 1.0.4
-bases:
-    - base
-envfiles:
-    - .env
-resources:
-    provider: azure
-    cluster_profile: default
-    # cluster_profile: highMem
-    # cluster_profile: GPU
-    cluster_name: foobaz
-    namespace: same_namespace
-    disks:
-        - name: data_disk
-          size: 10Gi
-          volumeMount:
-              mountPath: "/mnt/data_disk"
-              name: volume
-        - name: model_disk
-          size: 10Gi
-          volumeMount:
-              mountPath: "/mnt/model_disk"
-              name: volume
-workflow:
-    type: kubeflow
-    parameters:
-        kubeflowVersion: 1.2
-        kubeflowNamespace: kubeflow # Only support Kubeflow namespace
-        services:
-            - tensorflow_crd:2.1
-            - pytorch_crd:1.8
+    name: ExternalDataSource
+    version: 0.0.4
 pipeline:
-    name: "House Prices - Advanced Regression Techniques"
-    description: "House Prices - Advanced Regression Techniques"
-    package: "houseprice.py"
-datasets:
-    - name: "DS1 name"
-      type: remote
-      url: "https://unused.com"
-      makeLocalCopy: true
+    name: "Using an Exetrnal Data Source - 2"
+    description: "A simple kubeflow execution designed to show using an external data source."
+    package: "external_datasource.py"
 run:
-    name: "My Run"
+    name: "Using an External Data Source - 2"
     parameters:
-        epochs: 22
-        batch_size: 200
-debugging_features_flags:
-    createStorage: false
+        percent_to_withhold_for_test: 0.2
