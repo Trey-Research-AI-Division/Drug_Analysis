@@ -9,4 +9,4 @@ pipeline:
 run:
     name: "Drug Analysis Pipeline - Run"
     parameters:
-        percent_to_withhold_for_test: 0.2
+        percent_to_withhold_for_test: 0.3
