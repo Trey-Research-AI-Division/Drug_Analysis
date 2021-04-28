@@ -14,19 +14,21 @@ jobs:
       - name: Install SAME Client and Setup credentials
         run: |
           curl -L0 https://get.sameproject.org | bash -
-          source ~/.bashrc
-          mkdir -p ~/.kube
-          echo "${{ secrets.kubeconfig }}" > ~/.kube/config
-          cat ~/.kube/config
-          mkdir -p ~/.same
-          touch ~/.same/config
-          echo "activecontext: " >> ~/.same/config.yaml
+          source $HOME/.bashrc
+          mkdir -p $HOME/.kube
+          echo "$KUBECONFIG_SECRET" > $HOME/.kube/config
+          cat $HOME/.kube/config
+          mkdir -p $HOME/.same
+          touch $HOME/.same/config
+          echo "activecontext: " >> $HOME/.same/config.yaml
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          mkdir -p ~/.local/bin/kubectl
-          mv ./kubectl ~/.local/bin/kubectl
-          export PATH=$PATH:~/.local/bin/kubectl
+          mkdir -p $HOME/.local/bin/kubectl
+          mv ./kubectl $HOME/.local/bin/kubectl
+          export PATH=$PATH:$HOME/.local/bin/kubectl
           echo "export KUBECONFIG=$HOME/.kube/config" >> $HOME/.bashrc
-          export KUBECONFIG=~/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+        env: # Set the secret as an input
+          kubeconfig_secret: ${{ secrets.kubeconfig }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
