@@ -36,10 +36,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Debugging with tmate
-        uses: mxschmitt/action-tmate@v3.5
-        env: # Set the secret as an input
-          kubeconfig_secret: ${{ secrets.KUBECONFIG }}
       - name: Install KFP SDK for KFP DSL Compile tool
         run: |
           python -m pip install --upgrade pip
