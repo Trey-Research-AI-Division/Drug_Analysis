@@ -1,3 +1,5 @@
-# EXAMPLE-SAME-Enabled-Data-Science-Repo
+# Drug Analysis Model
 
-This is a data science repo that is an example of what downloading from a real data science repo might be like.
+(Based on Sergine (https://www.kaggle.com/serigne)'s housing model - read more about it here!  https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard)
+
+Provides stacked regressions to predict housing prices.
