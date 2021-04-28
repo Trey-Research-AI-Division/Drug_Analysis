@@ -8,31 +8,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set env
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-    - name: Install SAME Client and Setup credentials
-      run: |
-        curl -L0 https://get.sameproject.org | bash -
-        source ~/.bashrc
-        mkdir -p ~/.kube
-        echo "${{ secrets.kubeconfig }}" > ~/.kube/config
-        cat ~/.kube/config
-        mkdir -p ~/.same
-        touch ~/.same/config
-        echo "activecontext: " >> ~/.same/config.yaml
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        mkdir -p ~/.local/bin/kubectl
-        mv ./kubectl ~/.local/bin/kubectl
-        export PATH=$PATH:~/.local/bin/kubectl
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install KFP SDK for KFP DSL Compile tool
-      run: |
-        python -m pip install --upgrade pip
-        pip install kfp
-    - name: Deploy & Run SAME Program
-      run: |
-        same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }}
+      - uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Install SAME Client and Setup credentials
+        run: |
+          curl -L0 https://get.sameproject.org | bash -
+          source ~/.bashrc
+          mkdir -p ~/.kube
+          echo "${{ secrets.kubeconfig }}" > ~/.kube/config
+          cat ~/.kube/config
+          mkdir -p ~/.same
+          touch ~/.same/config
+          echo "activecontext: " >> ~/.same/config.yaml
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          mkdir -p ~/.local/bin/kubectl
+          mv ./kubectl ~/.local/bin/kubectl
+          export PATH=$PATH:~/.local/bin/kubectl
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install KFP SDK for KFP DSL Compile tool
+        run: |
+          python -m pip install --upgrade pip
+          pip install kfp
+      - name: Deploy & Run SAME Program
+        run: |
+          same program run --experiment-name "${{ github.repository }}" --run-name "RELEASE-${{ env.RELEASE_VERSION }}" --run-param=sha=${{ github.sha }} --run-param=keyvault_url=$KEYVAULT_URL --run-param=keyvault_credentials_b64=$KEYVAULT_CREDENTIALS_B64 --run-param=connection_string_secret_name=$CONNECTION_STRING_SECRET_NAME

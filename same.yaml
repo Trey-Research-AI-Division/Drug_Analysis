@@ -1,12 +1,12 @@
 apiVersion: projectsame.io/v1alpha1
 metadata:
-    name: ExternalDataSource
+    name: DrugAnalysis
     version: 0.0.10
 pipeline:
-    name: "Using an Exetrnal Data Source Pipeline"
-    description: "A simple kubeflow execution designed to show using an external data source."
-    package: "external_datasource.py"
+    name: "Drug Analysis Pipeline"
+    description: "Analyzing drug interactions"
+    package: "drug_analysis.py"
 run:
-    name: "Using an External Data Source"
+    name: "Drug Analysis Pipeline - Run"
     parameters:
         percent_to_withhold_for_test: 0.2
