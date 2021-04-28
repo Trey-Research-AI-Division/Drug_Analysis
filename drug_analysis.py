@@ -210,6 +210,7 @@ def visualize_table(
     metadata = {
         "outputs": [
             {
+                "name": "Training Data Head",
                 "type": "table",
                 "storage": "inline",
                 "format": "csv",
@@ -220,6 +221,7 @@ def visualize_table(
                 ),
             },
             {
+                "name": "Testing Data Head",
                 "type": "table",
                 "storage": "inline",
                 "format": "csv",
